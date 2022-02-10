@@ -4,10 +4,8 @@ import Preloader from "../../../common/Preloader/preloader";
 import ProfileStatus from "./profileStatus";
 
 const ProfileInfo = (props) => {
-    if ( ! props.profile) {
-        return <Preloader />;
-    }
-        return (
+
+        return (! props.profile) ? <Preloader /> : (
             <div>
                 <Container>
                     <h1>Сторінка користувача </h1>
@@ -17,7 +15,8 @@ const ProfileInfo = (props) => {
                         <Card.Body>
                             <Card.Title>Статус користувача</Card.Title>
                             <Card.Text>
-                                <ProfileStatus />
+                                <ProfileStatus status={props.status}
+                                               updateStatusThunk={props.updateStatusThunk}/>
                             </Card.Text>
                         </Card.Body>
                         <ListGroup className="list-group-flush">

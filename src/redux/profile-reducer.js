@@ -1,8 +1,9 @@
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST_THEME = 'ADD-POST-THEME';
 const ON_POST_THEME_CHANGE = 'ON-POST-THEME-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     postsData: [
@@ -15,6 +16,7 @@ let initialState = {
     newTextPost: "",
     newTextTheme: "",
     profile: null,
+    status: "",
 };
 let profileReducer = (state = initialState,action) => {
     switch (action.type) {
@@ -45,6 +47,12 @@ let profileReducer = (state = initialState,action) => {
                 profile: action.profile,
             }
         }
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status,
+            }
+        }
         default:
             return state;
     }
@@ -68,10 +76,32 @@ export const setUserProfileAC = (profile) => {
             textThemeChange:textThemeChange,
         }
     }
+    export const setStatusAC = (status) => {
+        return {
+            type:'SET_STATUS',
+            status:status,
+        }
+    }
     export const getProfileThunkAC = (userId) => {
         return (dispatch) => {
             usersAPI.getProfile(userId).then(response => {
                 dispatch(setUserProfileAC(response.data));
+            });
+        }
+    }
+    export const getStatusThunkAC = (userId) => {
+        return (dispatch) => {
+            profileAPI.getStatus(userId).then(response => {
+                dispatch(setStatusAC(response.data));
+            });
+        }
+    }
+    export const updateStatusThunkAC = (status) => {
+        return (dispatch) => {
+            profileAPI.updateStatus(status).then(response => {
+                /*if(response.data.resultCode === 0){*/
+                    dispatch(setStatusAC(status));
+                /*}*/
             });
         }
     }

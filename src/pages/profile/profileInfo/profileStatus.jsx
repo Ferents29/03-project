@@ -3,27 +3,39 @@ import React from 'react';
 export default class ProfileStatus extends React.Component {
     state = {
         editMode: false,
+        status:this.props.status,
     }
-    activateEditMode(){
+    activateEditMode = () => {
         this.setState(
             {editMode: true,}
         )
     }
-    deactivateEditMode(){
+    deactivateEditMode = () => {
         this.setState(
             {editMode: false,}
+        )
+        this.props.updateStatusThunk(this.state.status);
+    }
+    onStatusChange = (e) => {
+        this.setState({
+                status: e.currentTarget.value,
+            }
         )
     }
     render() {
         return (
             <div>
                 {!this.state.editMode &&
-                <div onDoubleClick={this.activateEditMode.bind(this)}>23232323</div>}
+                <div onDoubleClick={this.activateEditMode}>
+                    {this.props.status || "Пользователь не обозначил свой статус."}
+                </div>}
 
                 {this.state.editMode &&
                 <div>
                     <input autoFocus={true}
-                           onBlur={this.deactivateEditMode.bind(this)} value={12121212}/>
+                           onChange={this.onStatusChange}
+                           onBlur={this.deactivateEditMode}
+                           value={this.state.status}/>
                 </div>}
             </div>
         )

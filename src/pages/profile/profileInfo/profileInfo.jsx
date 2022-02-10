@@ -8,7 +8,7 @@ const ProfileInfo = (props) => {
         return (! props.profile) ? <Preloader /> : (
             <div>
                 <Container>
-                    <h1>Сторінка користувача </h1>
+                    <h2>Сторінка користувача </h2>
                     <Card style={{ width: '18rem' }}>
                         <Card.Img variant="top"
                                   src={props.profile.photos.large} />

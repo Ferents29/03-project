@@ -20,7 +20,6 @@ class ProfileContainer extends React.Component {
         }
         this.props.getProfileThunk(userId);
         this.props.getStatusThunk(userId);
-        debugger
     }
     render() {
         return <Profile {...this.props}

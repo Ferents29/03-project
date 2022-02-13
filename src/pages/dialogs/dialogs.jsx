@@ -1,18 +1,26 @@
 import React from 'react';
-import {Col, Row, Tab, Form, Button, Nav} from "react-bootstrap";
+import {Col, Row, Tab, Nav} from "react-bootstrap";
+import {Field, reduxForm} from "redux-form";
 
 function Sonnet() {
     return null;
 }
 
+const AddMessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <span>Введіть текст Вашого повідомлення</span>
+            <Field component={"textarea"}
+                   name="newMessageBody"
+                   placeholder="Enter Your message" /><br/>
+            <button>Надіслати повідомлення</button>
+        </form>
+    )
+}
+
+const AddMessageFormRedux = reduxForm({form: "dialogAddMessageForm"})(AddMessageForm);
+
 const Dialogs = (props) => {
-    let addTextMessage = () => {
-        props.addTextMessage();
-    }
-    let onTextMessageChange = (e) => {
-        let textMessageChange = e.target.value;
-        props.onTextMessageChange(textMessageChange);
-    }
 
     let dialogsElement = props.state.dialogsPage.dialogsData.map((dialog) => {
         return <Nav.Item>
@@ -26,6 +34,9 @@ const Dialogs = (props) => {
         </Tab.Pane>
     });
 
+    let addNewMessage = (values) => {
+        props.addTextMessage(values.newMessageBody);
+    }
         return (
         <div className='container mt-4'>
             <Tab.Container id="left-tabs-example" defaultActiveKey="1">
@@ -39,20 +50,10 @@ const Dialogs = (props) => {
                         <Tab.Content>
                             {messagesElement}
                         </Tab.Content>
-
                         {/*Add Message Form*/}
                         <Col className="col-sm-5 mt-5">
                             {messagesElement}
-                            <Form className="mt-3">
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Label>Введіть текст Вашого повідомлення</Form.Label>
-                                    <Form.Control onChange={onTextMessageChange}
-                                                  as="textarea"
-                                                  value={props.state.dialogsPage.newTextMessage}
-                                                  rows={3} />
-                                </Form.Group>
-                                <Button onClick={addTextMessage} className="primary">Надіслати повідомлення</Button>
-                            </Form>
+                            <AddMessageFormRedux onSubmit={addNewMessage} />
                         </Col>
                         {/*End Add Message Form*/}
 
@@ -61,5 +62,6 @@ const Dialogs = (props) => {
             </Tab.Container>
         </div>
         )
-}
+    }
+
 export default Dialogs;

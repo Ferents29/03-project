@@ -6,7 +6,7 @@ let initialState = {
     id:null,
     email:null,
     login:null,
-    isAuth:false,
+    isAuth:true,
 };
 let authReducer = (state = initialState,action) => {
     switch (action.type) {

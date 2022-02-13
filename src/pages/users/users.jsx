@@ -13,9 +13,6 @@ let Users = (props) => {
 
         return (
             <Container>
-                <div>
-                    Тестируем Гит
-                </div>
                 <h1>Users page</h1>
                 {props.state.usersPage.usersData.map(u =>
                     <Card style={{ width: '18rem' }}>

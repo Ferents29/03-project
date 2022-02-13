@@ -5,10 +5,14 @@ import {reduxForm} from "redux-form";
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
+const onSubmit = (formData) => {
+    console.log("formData");
+}
+
 const Login = (props) => {
     return <div>
         <Container>
-            <LoginReduxForm />
+            <LoginReduxForm onSubmit={onSubmit}/>
         </Container>
     </div>
 }

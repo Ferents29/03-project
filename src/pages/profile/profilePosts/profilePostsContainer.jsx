@@ -1,5 +1,5 @@
 import React from 'react';
-import {addPostThemeAC, onPostThemeChangeAC} from "../../../redux/profile-reducer";
+import {addPostThemeAC} from "../../../redux/profile-reducer";
 import ProfilePosts from "./profilePosts";
 import {connect} from "react-redux";
 
@@ -10,11 +10,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addPost: () => {
-            dispatch(addPostThemeAC());
-        },
-        onTextChange: (textPostChange,textThemeChange) => {
-            dispatch(onPostThemeChangeAC(textPostChange,textThemeChange));
+        addPost: (newThemeText, newPostText) => {
+            dispatch(addPostThemeAC(newThemeText, newPostText));
         },
     };
 }

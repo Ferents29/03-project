@@ -1,7 +1,6 @@
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST_THEME = 'ADD-POST-THEME';
-const ON_POST_THEME_CHANGE = 'ON-POST-THEME-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -23,8 +22,8 @@ let profileReducer = (state = initialState,action) => {
         case ADD_POST_THEME: {
             let newPost = {
                 id: 6,
-                theme: state.newTextTheme,
-                message: state.newTextPost,
+                theme: action.newThemeText,
+                message: action.newPostText,
                 countLikes: 1000,
             };
             return {
@@ -32,13 +31,6 @@ let profileReducer = (state = initialState,action) => {
                 postsData: [...state.postsData, newPost],
                 textPostChange: "",
                 textThemeChange: "",
-            }
-        }
-        case ON_POST_THEME_CHANGE: {
-            return {
-                ...state,
-                newTextPost:action.textPostChange,
-                newTextTheme:action.textThemeChange,
             }
         }
         case SET_USER_PROFILE: {
@@ -58,22 +50,17 @@ let profileReducer = (state = initialState,action) => {
     }
 }
 
-    export const addPostThemeAC = () => {
+    export const addPostThemeAC = (newThemeText, newPostText) => {
         return {
             type:'ADD-POST-THEME',
+            newThemeText,
+            newPostText,
         }
     }
-export const setUserProfileAC = (profile) => {
-    return {
-        type:'SET_USER_PROFILE',
-        profile: profile,
-    }
-}
-    export const onPostThemeChangeAC = (textPostChange,textThemeChange) => {
+    export const setUserProfileAC = (profile) => {
         return {
-            type:'ON-POST-THEME-CHANGE',
-            textPostChange:textPostChange,
-            textThemeChange:textThemeChange,
+            type:'SET_USER_PROFILE',
+            profile: profile,
         }
     }
     export const setStatusAC = (status) => {

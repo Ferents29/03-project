@@ -1,18 +1,25 @@
 import React from 'react';
-import {Col, Button, Container, Form, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
+import {Field, reduxForm} from "redux-form";
+
+const AddNewPostForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <span>Тема поста</span><br/>
+                <Field name="newThemeText" component={"input"}/><br/>
+            <span>Пост</span><br/>
+                <Field name="newPostText" component={"textarea"}/><br/>
+            <button>Надіслати</button>
+        </form>
+    )
+}
+
+const AddNewPostFormRedux = reduxForm({form: 'profileAddNewPostForm'})(AddNewPostForm);
 
 const ProfilePosts = (props) => {
 
-    let textPostObject = React.createRef();
-    let textThemeObject = React.createRef();
-
-    let addPost = () => {
-        props.addPost();
-    }
-    let onTextChange = () => {
-        let textPostChange = textPostObject.current.value;
-        let textThemeChange = textThemeObject.current.value;
-        props.onTextChange(textPostChange,textThemeChange);
+    let addPost = (values) => {
+        props.addPost(values.newThemeText, values.newPostText);
     }
 
        let postsElement = props.state.profilePage.postsData.map((post) => {
@@ -32,25 +39,7 @@ const ProfilePosts = (props) => {
                     </div>
                     <Row>
                         <Col className="col-md-4">
-                            <Form>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Тема поста</Form.Label>
-                                    <Form.Control onChange={onTextChange}
-                                                  ref={textThemeObject}
-                                                  type="text"
-                                                  value={props.state.profilePage.newTextTheme}
-                                                  placeholder="Тема поста" />
-                                </Form.Group>
-                                <Form.Group  className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Label>Пост</Form.Label>
-                                    <Form.Control onChange={onTextChange}
-                                                  ref={textPostObject}
-                                                  as="textarea"
-                                                  value={props.state.profilePage.newTextPost}
-                                                  rows={3} />
-                                </Form.Group>
-                                <Button onClick={addPost}>Надіслати</Button>
-                            </Form>
+                            <AddNewPostFormRedux onSubmit={addPost}/>
                         </Col>
                     </Row>
                 </Container>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {Field, reduxForm} from "redux-form";
+import {required} from "../../../utils/validators/validators";
 
 const AddNewPostForm = (props) => {
     return(
@@ -8,7 +9,9 @@ const AddNewPostForm = (props) => {
             <span>Тема поста</span><br/>
                 <Field name="newThemeText" component={"input"}/><br/>
             <span>Пост</span><br/>
-                <Field name="newPostText" component={"textarea"}/><br/>
+                <Field name="newPostText"
+                       component={"textarea"}
+                       validate={[required, maxLength30, minLength3]}/><br/>
             <button>Надіслати</button>
         </form>
     )

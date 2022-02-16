@@ -1,6 +1,8 @@
 import React from "react";
 import {Button, Container, Form} from "react-bootstrap";
 import {Field, reduxForm} from "redux-form";
+import {Input} from "../../common/FormsControl/FormsControl";
+import {required} from "../../utils/validators/validators";
 
 const LoginForm = (props) => {
     return <div className="col-md-3">
@@ -9,17 +11,19 @@ const LoginForm = (props) => {
             <Form.Label>Введіть Ваш Login</Form.Label><br/>
             <Field name="login"
                    type="text"
-                   component={"input"}
+                   component={Input}
+                   validate={[required]}
                    placeholder="Введіть Ваш Login" /><br/><br/>
             <Form.Label>Введіть Ваш пароль</Form.Label><br/>
             <Field name="password"
                    type="password"
-                   component={"input"}
+                   component={Input}
+                   validate={[required]}
                    placeholder="Введіть Ваш пароль" /><br/>
             <Form.Label>Запам'ятати мене.</Form.Label><br/>
             <Field name="rememberMe"
                    type="checkbox"
-                   component={"input"} /><br/>
+                   component={"checkbox"} /><br/>
             <Button variant="outline-primary" type="submit">
                 Ввійти
             </Button>

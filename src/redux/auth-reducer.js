@@ -35,9 +35,6 @@ let authReducer = (state = initialState,action) => {
                     let {id,login,email} = response.data.data;
                     dispatch(setUserDataAC(id,login,email));
                 }
-                // else {
-                //     alert(response.data.messages);
-                // }
             });
         }
     }

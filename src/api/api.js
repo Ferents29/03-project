@@ -38,4 +38,10 @@ export const authAPI = {
     me(){
         return instance.get(baseUrl + `/auth/me`);
     },
+    login(email, password, rememberMe) {
+        return instance.post(baseUrl + `/auth/me`, {email, password, rememberMe});
+    },
+    logout() {
+        return instance.delete(baseUrl + `/auth/me`);
+    }
 }

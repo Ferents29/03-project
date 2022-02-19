@@ -3,17 +3,19 @@ import {Button, Container, Form} from "react-bootstrap";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../../common/FormsControl/FormsControl";
 import {required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {loginThunkAC} from "../../redux/auth-reducer";
 
 const LoginForm = (props) => {
     return <div className="col-md-3">
         <h1>Ввійти в аккаунт</h1>
         <Form onSubmit="handleSubmit">
             <Form.Label>Введіть Ваш Login</Form.Label><br/>
-            <Field name="login"
+            <Field name="email"
                    type="text"
                    component={Input}
                    validate={[required]}
-                   placeholder="Введіть Ваш Login" /><br/><br/>
+                   placeholder="Введіть Ваш Email" /><br/><br/>
             <Form.Label>Введіть Ваш пароль</Form.Label><br/>
             <Field name="password"
                    type="password"
@@ -33,11 +35,10 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
-const onSubmit = (formData) => {
-    console.log(formData);
-}
-
 const Login = (props) => {
+    const onSubmit = (formData) => {
+        props.setLogin(formData.email, formData.password, formData.rememberMe);
+    }
     return <div>
         <Container>
             <LoginReduxForm onSubmit={onSubmit}/>
@@ -45,4 +46,12 @@ const Login = (props) => {
     </div>
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLogin: () => {
+            dispatch(loginThunkAC());
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

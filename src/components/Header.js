@@ -92,8 +92,15 @@ export default class Header extends Component {
                             </Form>
                         </Navbar.Collapse>
                     </Container>
-                    {this.props.isAuth ? this.props.login :
-                        <Nav>
+                    {this.props.isAuth
+                        ? <div>{this.props.login}
+                            <Nav>
+                                <Button onClick={this.props.logOut}>
+                                    Log out
+                                </Button>
+                            </Nav>
+                        </div>
+                        : <Nav>
                             <Button className="m-2" variant="outline-primary">
                                 <Nav.Link href="/login">Login</Nav.Link>
                             </Button>

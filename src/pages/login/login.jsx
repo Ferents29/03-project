@@ -5,6 +5,7 @@ import {Input} from "../../common/FormsControl/FormsControl";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkAC} from "../../redux/auth-reducer";
+import {Redirect} from "react-router-dom";
 
 const LoginForm = (props) => {
     return <div className="col-md-3">
@@ -39,19 +40,26 @@ const Login = (props) => {
     const onSubmit = (formData) => {
         props.setLogin(formData.email, formData.password, formData.rememberMe);
     }
+    if (props.isAuth){
+        return <Redirect to={"/profile"} />
+    }
     return <div>
         <Container>
             <LoginReduxForm onSubmit={onSubmit}/>
         </Container>
     </div>
 }
-
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.authPage.isAuth,
+    }
+}
+let mapDispatchToProps = (dispatch) => {
     return {
         setLogin: () => {
             dispatch(loginThunkAC());
-        }
+        },
     }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -6,7 +6,7 @@ let initialState = {
     id:null,
     email:null,
     login:null,
-    isAuth:false,
+    isAuth:true,
 };
 let authReducer = (state = initialState,action) => {
     switch (action.type) {
@@ -14,7 +14,6 @@ let authReducer = (state = initialState,action) => {
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true,
             }
         }
         default:
@@ -51,7 +50,7 @@ let authReducer = (state = initialState,action) => {
         return (dispatch) => {
             authAPI.logout().then(response => {
                 if (response.data.resultCode === 0){
-                    dispatch(setUserDataAC(null,null,null,true));
+                    dispatch(setUserDataAC(null,null,null,false));
                 }
             });
         }

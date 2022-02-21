@@ -46,7 +46,7 @@ let authReducer = (state = initialState,action) => {
                     let message = response.data.messages.length > 0
                         ? response.data.messages[0]
                         : "Some error";
-                    dispatch(stopSubmit('login', {_error: message}));
+                    dispatch(stopSubmit("login", {_error: message}));
                 }
             });
         }

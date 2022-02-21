@@ -9,10 +9,9 @@ import {Redirect} from "react-router-dom";
 import style from "./../../common/FormsControl/FormsControl.module.css";
 
 const LoginForm = (props) => {
-    debugger
     return <div className="col-md-3">
         <h1>Ввійти в аккаунт</h1>
-        <Form onSubmit="handleSubmit">
+        <Form onSubmit={props.handleSubmit}>
             <Form.Label>Введіть Ваш Login</Form.Label><br/>
             <Field name="email"
                    type="text"

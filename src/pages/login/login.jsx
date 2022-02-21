@@ -6,8 +6,10 @@ import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkAC} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
+import style from "./../../common/FormsControl/FormsControl.module.css";
 
 const LoginForm = (props) => {
+    debugger
     return <div className="col-md-3">
         <h1>Ввійти в аккаунт</h1>
         <Form onSubmit="handleSubmit">
@@ -23,10 +25,13 @@ const LoginForm = (props) => {
                    component={Input}
                    validate={[required]}
                    placeholder="Введіть Ваш пароль" /><br/>
-            <Form.Label>Запам'ятати мене.</Form.Label><br/>
+            <Form.Label>Запам'ятати мене</Form.Label>
             <Field name="rememberMe"
                    type="checkbox"
-                   component={"checkbox"} /><br/>
+                   component={Input} /><br/>
+            {props.error && <div className={style.formSummaryError}>
+                {props.error}
+            </div>}
             <Button variant="outline-primary" type="submit">
                 Ввійти
             </Button>
@@ -56,8 +61,8 @@ const mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        setLogin: () => {
-            dispatch(loginThunkAC());
+        setLogin: (email, password, rememberMe) => {
+            dispatch(loginThunkAC(email, password, rememberMe));
         },
     }
 }

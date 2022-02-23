@@ -12,18 +12,20 @@ import {compose} from "redux";
 
 class UsersContainer extends React.Component{
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.state.usersPage.currentPage, this.props.state.usersPage.sizePage)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.sizePage)
     }
     onPageChange = (numberPage) => {
-        this.props.getUsersThunkCreator(numberPage, this.props.state.usersPage.sizePage);
+        this.props.getUsersThunkCreator(numberPage, this.props.sizePage);
     }
     render() {
         return <>
              {/*Якщо в нас this.props.state.usersPage.isFetching == true, то відображається Preloader,*/}
              {/*в іншому випадку рендериться компонента Users*/}
 
-            {this.props.state.usersPage.isFetching ? <Preloader /> : (
-                <Users state={this.props.state}
+            {this.props.isFetching ? <Preloader /> : (
+                <Users totalUsersCount={this.props.totalUsersCount}
+                       sizePage={this.props.sizePage}
+                       usersData={this.props.usersData}
                        follow={this.props.follow}
                        followThunk={this.props.followThunk}
                        unfollowThunk={this.props.unfollowThunk}
@@ -40,7 +42,10 @@ class UsersContainer extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        state:state,
+        totalUsersCount:state.usersPage.totalUsersCount,
+        isFetching:state.usersPage.isFetching,
+        sizePage:state.usersPage.sizePage,
+        usersData:state.usersPage.usersData,
         followingInProgress:state.usersPage.followingInProgress,
     }
 }

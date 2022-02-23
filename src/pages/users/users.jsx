@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 let Users = (props) => {
 
-        let countPages = Math.ceil(props.state.usersPage.totalUsersCount / props.state.usersPage.sizePage);
+        let countPages = Math.ceil(props.totalUsersCount / props.sizePage);
         let pages = [];
         for (let i = 1; i <= countPages; i++){
             pages.push(i);
@@ -14,7 +14,7 @@ let Users = (props) => {
         return (
             <Container>
                 <h1>Users page</h1>
-                {props.state.usersPage.usersData.map(u =>
+                {props.usersData.map(u =>
                     <Card style={{ width: '18rem' }}>
                         <NavLink to={"/profile/"+u.id}>
                             <Card.Img variant="top"  src={u.photos.small !== null ? u.photos.small : girls}/>
@@ -55,7 +55,7 @@ let Users = (props) => {
                             <Pagination.Ellipsis />
                             {pages.map(p =>
                                 <div>
-                                    {props.state.usersPage.currentPage === p
+                                    {props.currentPage === p
                                         ? <span><Pagination.Item onClick={ (e) => {props.onPageChange(p)} } active>{p}</Pagination.Item></span>
                                         : <span><Pagination.Item onClick={ (e) => {props.onPageChange(p)} }>{p}</Pagination.Item></span>}
 

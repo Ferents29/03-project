@@ -31,11 +31,10 @@ const AddNewPostFormRedux = reduxForm({form: 'profileAddNewPostForm'})(AddNewPos
 const ProfilePosts = (props) => {
 
     let addPost = (values) => {
-        debugger
         props.addPost(values.newThemeText, values.newPostText);
     }
 
-       let postsElement = props.state.profilePage.postsData.map((post) => {
+       let postsElement = props.postsData.map((post) => {
            return <div className="m-3">
                      <span>{post.theme}</span><br/>
                      {post.id+'. '}{post.message}<br/>

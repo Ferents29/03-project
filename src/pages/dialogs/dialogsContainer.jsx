@@ -7,7 +7,8 @@ import {compose} from "redux";
 
 let mapStateToProps = (state) => {
    return {
-       state:state,
+       dialogsData:state.dialogsPage.dialogsData,
+       messageData:state.dialogsPage.messageData,
    }
 }
 let mapDispatchToProps = (dispatch) => {

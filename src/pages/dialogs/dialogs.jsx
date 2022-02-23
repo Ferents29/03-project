@@ -22,12 +22,12 @@ const AddMessageFormRedux = reduxForm({form: "dialogAddMessageForm"})(AddMessage
 
 const Dialogs = (props) => {
 
-    let dialogsElement = props.state.dialogsPage.dialogsData.map((dialog) => {
+    let dialogsElement = props.dialogsData.map((dialog) => {
         return <Nav.Item>
             <Nav.Link eventKey={dialog.id}>{dialog.name}</Nav.Link>
         </Nav.Item>});
 
-    let messagesElement = props.state.dialogsPage.messageData.map((message) => {
+    let messagesElement = props.messageData.map((message) => {
         return <Tab.Pane eventKey={message.id}>
             <Sonnet />
             {message.messageBody}

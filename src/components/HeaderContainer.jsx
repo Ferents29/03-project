@@ -1,12 +1,9 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {getAuthUserDataThunkAC, logoutThunkAC, setUserDataAC} from "../redux/auth-reducer";
+import {logoutThunkAC, setUserDataAC} from "../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
-    componentDidMount() {
-        this.props.authThunk();
-    }
     render() {
         return (
             <Header {...this.props}/>
@@ -23,9 +20,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setUserData: (id, login, email) => {
             dispatch(setUserDataAC(id, login, email));
-        },
-        authThunk: () => {
-            dispatch(getAuthUserDataThunkAC());
         },
         logOut: () => {
             dispatch(logoutThunkAC());

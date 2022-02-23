@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react'
 import {Container, Form, FormControl, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Button} from "react-bootstrap";
-import {BrowserRouter, Route } from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import Home from "../pages/home";
 import Messages from "../pages/messages/messages";
 import About from "../pages/about"

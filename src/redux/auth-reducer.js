@@ -7,7 +7,7 @@ let initialState = {
     id:null,
     email:null,
     login:null,
-    isAuth:false,
+    isAuth:true,
 };
 let authReducer = (state = initialState,action) => {
     switch (action.type) {
@@ -28,16 +28,15 @@ let authReducer = (state = initialState,action) => {
             payload:{id,login,email,isAuth},
         }
     }
-    export const getAuthUserDataThunkAC = () => {
-        return (dispatch) => {
-            authAPI.me().then(response => {
+    export const getAuthUserDataThunkAC = () => (dispatch) => {
+            return  authAPI.me().then(response => {
                 if(response.data.resultCode === 0){
                     let {id,login,email} = response.data.data;
                     dispatch(setUserDataAC(id,login,email,true));
                 }
             });
         }
-    }
+
     export const loginThunkAC = (email, password, rememberMe) => (dispatch) => {
             authAPI.login(email, password, rememberMe).then(response => {
                 if(response.data.resultCode === 0){

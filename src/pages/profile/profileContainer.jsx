@@ -3,7 +3,6 @@ import Profile from "./profile";
 import {connect} from "react-redux";
 import {
     getProfileThunkAC,
-    getStatusThunk,
     getStatusThunkAC,
     setUserProfileAC,
     updateStatusThunkAC
@@ -16,7 +15,7 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if ( ! userId){
-            userId = 10;
+            userId = this.props.autorizedUserId;
         }
         this.props.getProfileThunk(userId);
         this.props.getStatusThunk(userId);
@@ -32,6 +31,8 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        autorizedUserId: state.authPage.id,
+        isAuth: state.authPage.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Container, ListGroup, ListGroupItem} from "react-bootstrap";
 import Preloader from "../../../common/Preloader/preloader";
-import ProfileStatus from "./profileStatus";
+import {ProfileStatus} from "./profileStatus";
 
 const ProfileInfo = (props) => {
 

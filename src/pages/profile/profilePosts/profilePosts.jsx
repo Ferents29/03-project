@@ -28,35 +28,35 @@ const AddNewPostForm = (props) => {
 
 const AddNewPostFormRedux = reduxForm({form: 'profileAddNewPostForm'})(AddNewPostForm);
 
-const ProfilePosts = (props) => {
+const ProfilePosts = React.memo((props) => {
 
     let addPost = (values) => {
         props.addPost(values.newThemeText, values.newPostText);
     }
 
-       let postsElement = props.postsData.map((post) => {
-           return <div className="m-3">
-                     <span>{post.theme}</span><br/>
-                     {post.id+'. '}{post.message}<br/>
-                     <span><a href="">Лайк:</a>{post.countLikes}</span>
-                  </div>
-          });
+    let postsElement = props.postsData.map((post) => {
+        return <div className="m-3">
+            <span>{post.theme}</span><br/>
+            {post.id + '. '}{post.message}<br/>
+            <span><a href="">Лайк:</a>{post.countLikes}</span>
+        </div>
+    });
 
-        return (
-            <div>
-                <Container>
-                    <h1>Мої пости</h1>
-                    <div className="col-md-5 m-3">
-                        {postsElement}
-                    </div>
-                    <Row>
-                        <Col className="col-md-4">
-                            <AddNewPostFormRedux onSubmit={addPost}/>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        )
-}
+    return (
+        <div>
+            <Container>
+                <h1>Мої пости</h1>
+                <div className="col-md-5 m-3">
+                    {postsElement}
+                </div>
+                <Row>
+                    <Col className="col-md-4">
+                        <AddNewPostFormRedux onSubmit={addPost}/>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    )
+});
 
 export default ProfilePosts;

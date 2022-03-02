@@ -3,6 +3,7 @@ import {profileAPI, usersAPI} from "../api/api";
 const ADD_POST_THEME = 'ADD-POST-THEME';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState = {
     postsData: [
@@ -33,6 +34,12 @@ let profileReducer = (state = initialState,action) => {
                 textThemeChange: "",
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state,
+                postsData: state.postsData.filter(p => p.id !== action.postId),
+            }
+        }
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -55,6 +62,12 @@ let profileReducer = (state = initialState,action) => {
             type:'ADD-POST-THEME',
             newThemeText,
             newPostText,
+        }
+    }
+    export const deletePostAC = (postId) => {
+        return {
+            type:'DELETE_POST',
+            postId,
         }
     }
     export const setUserProfileAC = (profile) => {

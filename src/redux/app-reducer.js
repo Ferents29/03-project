@@ -25,9 +25,6 @@ let appReducer = (state = initialState,action) => {
     }
     export const initializeAppThunkAC = () => (dispatch) => {
         let promise = dispatch(getAuthUserDataThunkAC());
-        debugger
-        //dispatch(somethingelse());
-        //dispatch(somethingelse());
         promise.then(() => {
             dispatch(initializedSuccessAC());
         });

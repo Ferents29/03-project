@@ -82,27 +82,18 @@ let profileReducer = (state = initialState,action) => {
             status:status,
         }
     }
-    export const getProfileThunkAC = (userId) => {
-        return (dispatch) => {
-            usersAPI.getProfile(userId).then(response => {
+    export const getProfileThunkAC = (userId) => async (dispatch) => {
+            let response = await usersAPI.getProfile(userId);
                 dispatch(setUserProfileAC(response.data));
-            });
         }
-    }
-    export const getStatusThunkAC = (userId) => {
-        return (dispatch) => {
-            profileAPI.getStatus(userId).then(response => {
+    export const getStatusThunkAC = (userId) => async (dispatch) => {
+            let response = await profileAPI.getStatus(userId);
                 dispatch(setStatusAC(response.data));
-            });
         }
-    }
-    export const updateStatusThunkAC = (status) => {
-        return (dispatch) => {
-            profileAPI.updateStatus(status).then(response => {
-                /*if(response.data.resultCode === 0){*/
+    export const updateStatusThunkAC = (status) => async (dispatch) => {
+            let response = await profileAPI.updateStatus(status);
+                if(response.data.resultCode === 0){
                     dispatch(setStatusAC(status));
-                /*}*/
-            });
+                }
         }
-    }
     export default profileReducer;

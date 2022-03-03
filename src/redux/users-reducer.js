@@ -120,37 +120,30 @@ let usersReducer = (state = initialState, action) => {
             isFetching: isFetching,
         }
     }
-    export const getUsersThunkCreatorAC = (currentPage, sizePage) => {
-        return (dispatch) => {
+    export const getUsersThunkCreatorAC = (currentPage, sizePage) => async (dispatch) => {
             dispatch(toggleIsFetchingAC(true));
-            usersAPI.getUsers(currentPage, sizePage)
-                .then(data => {
+            let data = await usersAPI.getUsers(currentPage, sizePage);
                     dispatch(setUsersAC(data.items));
                     dispatch(setTotalUsersCountAC(data.totalCount));
                     dispatch(toggleIsFetchingAC(false));
-                });
         }
-    }
-    export const followThunkAC = (userId) => {
-        return (dispatch) => {
+
+        const followUnfollowThunkAC = async (userId, dispatch, apiMethod, actionCreator) => {
             dispatch(toggleFollowingProgressAC(true, userId));
-            usersAPI.follow(userId).then(response => {
-                if (response.data.resultCode === 0){
-                    dispatch(followAC(userId));
-                }
-            });
+            let response = await apiMethod(userId);
+            if (response.data.resultCode === 0){
+                dispatch(actionCreator(userId));
+            }
             dispatch(toggleFollowingProgressAC(false, userId));
         }
-    }
-    export const unfollowThunkAC = (userId) => {
-        return (dispatch) => {
-            dispatch(toggleFollowingProgressAC(true, userId));
-            usersAPI.unfollow(userId).then(response => {
-                if (response.data.resultCode === 0){
-                    dispatch(unfollowAC(userId));
-                }
-            });
-            dispatch(toggleFollowingProgressAC(false, userId));
+
+    export const followThunkAC = (userId) => async (dispatch) => {
+        let {apiMethod, actionCreator} = [usersAPI.follow.bind(usersAPI), followAC];
+            await followUnfollowThunkAC(userId, dispatch, apiMethod, actionCreator);
         }
-    }
+    export const unfollowThunkAC = (userId) => async (dispatch) => {
+        let {apiMethod, actionCreator} = [usersAPI.unfollow.bind(usersAPI), unfollowAC];
+            await followUnfollowThunkAC(userId, dispatch, apiMethod, actionCreator);
+        }
+
 export default usersReducer;

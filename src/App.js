@@ -3,10 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import HeaderContainer from "./components/HeaderContainer";
 import {connect} from "react-redux";
-// import {getAuthUserDataThunkAC} from "./redux/auth-reducer";
 import {initializeAppThunkAC} from "./redux/app-reducer";
 import Preloader from "./common/Preloader/preloader";
-import store from "./redux/redux-store";
 
 class App extends React.Component {
     componentDidMount() {
